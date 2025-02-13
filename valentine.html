@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentine's Proposal</title>
+    <style>
+        body {
+            background-color: #FFC0CB;
+            font-family: "Georgia", serif;
+            text-align: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+        h1 {
+            font-size: 2.5rem;
+            color: #8B0000;
+        }
+        .button-container {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+            position: relative;
+            z-index: 2;
+        }
+        button {
+            font-size: 1.5rem;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+        .yes-btn {
+            background-color: #FF69B4;
+            color: white;
+        }
+        .no-btn {
+            background-color: #FF4500;
+            color: white;
+        }
+        .tulips {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            align-items: center;
+        }
+        .tulip {
+            font-size: 2rem;
+            position: absolute;
+            animation: float 4s infinite alternate ease-in-out;
+        }
+        .heart-background {
+            position: absolute;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 15rem;
+            color: red;
+            opacity: 0.2;
+            z-index: 0;
+        }
+        @keyframes float {
+            from { transform: translateY(0px); }
+            to { transform: translateY(-20px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="heart-background">❤️</div>
+    <div class="tulips"></div>
+    <h1>Can I be your Valentine?</h1>
+    <div class="button-container">
+        <button class="yes-btn" id="yes">Yes</button>
+        <button class="no-btn" id="no">No</button>
+    </div>
+
+    <script>
+        let yesButton = document.getElementById("yes");
+        let noButton = document.getElementById("no");
+        let tulipsContainer = document.querySelector(".tulips");
+        let size = 1;
+
+        noButton.addEventListener("click", function() {
+            size += 0.5;
+            yesButton.style.transform = `scale(${size})`;
+
+            if (size > 5) {
+                yesButton.style.width = "100vw";
+                yesButton.style.height = "100vh";
+                yesButton.style.fontSize = "3rem";
+                yesButton.innerText = "Yay! ❤️";
+            }
+        });
+
+        yesButton.addEventListener("click", function() {
+            document.body.innerHTML = '<div class="heart-background">❤️</div>' + 
+                                      '<div class="tulips"></div>' + 
+                                      '<h1 style="color: #8B0000; font-size: 3rem;">Yay! ❤️</h1>';
+            createTulips();
+        });
+
+        function createTulips() {
+            for (let i = 0; i < 30; i++) {
+                let tulip = document.createElement("div");
+                tulip.innerText = "🌷";
+                tulip.classList.add("tulip");
+                tulip.style.left = `${Math.random() * 100}vw`;
+                tulip.style.top = `${Math.random() * 100}vh`;
+                tulip.style.animationDuration = `${2 + Math.random() * 3}s`;
+                document.querySelector(".tulips").appendChild(tulip);
+            }
+        }
+        createTulips();
+    </script>
+</body>
+</html>
